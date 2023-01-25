@@ -31,7 +31,6 @@ function App() {
           }
           return i;
         });
-        break;
       case "off":
         return state.map((i) => {
           if (i.id === action.id) {
@@ -39,7 +38,6 @@ function App() {
           }
           return i;
         });
-        break;
       default:
         break;
     }
