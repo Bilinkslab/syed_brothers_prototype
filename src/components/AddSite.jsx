@@ -6,7 +6,7 @@ export default function AddSite(props) {
 
   return (
     <>
-      <Modal show="false" fullscreen>
+      <Modal show={props.show} onHide={props.onHide} backdrop="static" fullscreen>
         <Modal.Header closeButton>Add Site</Modal.Header>
         <Modal.Body>
           {currentPage === 1 && (
@@ -42,7 +42,7 @@ export default function AddSite(props) {
                           </Form.Group>
                         </Row>
                         <Row className="ps-1">
-                          <b className="text-primary">
+                          <b className="text-primary" onClick={props.showAddClient}>
                             <u>Add New Client</u>
                           </b>
                         </Row>
@@ -79,7 +79,7 @@ export default function AddSite(props) {
                               </Form.Group>
                             </Row>
                             <Row className="ps-1">
-                              <b className="text-primary">
+                              <b className="text-primary" onClick={props.showAddUnit}>
                                 <u>Add New Unit</u>
                               </b>
                             </Row>
@@ -96,7 +96,7 @@ export default function AddSite(props) {
                           </Form.Group>
                         </Row>
                         <Row className="ps-1">
-                          <b className="text-primary">
+                          <b className="text-primary" onClick={props.showAddSeniorSupervisor}>
                             <u>Add New Senior Supervisor</u>
                           </b>
                         </Row>
@@ -113,7 +113,7 @@ export default function AddSite(props) {
                           </Form.Group>
                         </Row>
                         <Row className="ps-1">
-                          <b className="text-primary">
+                          <b className="text-primary" onClick={props.showAddJuniorSupervisor}>
                             <u>Add New Junior Supervisor</u>
                           </b>
                         </Row>
@@ -146,7 +146,7 @@ export default function AddSite(props) {
                           </Form.Group>
                         </Row>
                         <Row className="ps-1">
-                          <b className="text-primary">
+                          <b className="text-primary" onClick={props.showAddCity}>
                             <u>Add New City</u>
                           </b>
                         </Row>
@@ -161,7 +161,7 @@ export default function AddSite(props) {
                           </Form.Group>
                         </Row>
                         <Row className="ps-1">
-                          <b className="text-primary">
+                          <b className="text-primary" onClick={props.showAddPurchaser}>
                             <u>Add New Purchaser</u>
                           </b>
                         </Row>
@@ -178,7 +178,7 @@ export default function AddSite(props) {
                           </Form.Group>
                         </Row>
                         <Row className="ps-1">
-                          <b className="text-primary">
+                          <b className="text-primary" onClick={props.showAddRawMaterial}>
                             <u>Add New Raw Material</u>
                           </b>
                         </Row>
