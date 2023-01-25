@@ -289,7 +289,7 @@ export default function AddSite(props) {
               <Button
                 className="me-3 mb-3"
                 variant="success"
-                onClick={() => setCurrentPage(currentPage + 1)}
+                onClick={() => console.log("Request Initiate")}
               >
                 Send Request
               </Button>
