@@ -8,7 +8,8 @@ import AddRawMaterial from "./components/AddRawMaterial";
 import AddSeniorSupervisor from "./components/AddSeniorSupervisor";
 import AddJuniorSupervisor from "./components/AddJuniorSupervisor";
 import AddPurchaser from "./components/AddPurchaser";
-import { useReducer } from "react";
+import { useReducer, useState, useEffect } from "react";
+import { Toast, ToastContainer } from "react-bootstrap";
 
 function App() {
   const states = [
@@ -21,6 +22,66 @@ function App() {
     { id: "add_purchaser", status: false },
     { id: "add_raw_material", status: false },
   ];
+
+  const [areaUnits, setAreaUnits] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [clients, setClients] = useState([]);
+  const [purchasers, setPurchasers] = useState([]);
+  const [rawMaterials, setRawMaterials] = useState([]);
+  const [supervisors, setSupervisors] = useState([]);
+  const [toast, setToast] = useState(true);
+  const [toastMsg, setToastMsg] = useState("");
+
+  const updateAreaUnits = async () => {
+    const res = await fetch(
+      `http://localhost:${process.env.REACT_APP_API}/area_unit`
+    ).then((res) => res.json());
+    setAreaUnits(res.data);
+  };
+
+  const updateCities = async () => {
+    const res = await fetch(
+      `http://localhost:${process.env.REACT_APP_API}/city`
+    ).then((res) => res.json());
+    setCities(res.data);
+  };
+
+  const updateClients = async () => {
+    const res = await fetch(
+      `http://localhost:${process.env.REACT_APP_API}/client`
+    ).then((res) => res.json());
+    setClients(res.data);
+  };
+
+  const updatePurchasers = async () => {
+    const res = await fetch(
+      `http://localhost:${process.env.REACT_APP_API}/purchaser`
+    ).then((res) => res.json());
+    setPurchasers(res.data);
+  };
+
+  const updateRawMaterials = async () => {
+    const res = await fetch(
+      `http://localhost:${process.env.REACT_APP_API}/raw_material`
+    ).then((res) => res.json());
+    setRawMaterials(res.data);
+  };
+
+  const updateSupervisors = async () => {
+    const res = await fetch(
+      `http://localhost:${process.env.REACT_APP_API}/supervisor`
+    ).then((res) => res.json());
+    setSupervisors(res.data);
+  };
+
+  useEffect(() => {
+    updateAreaUnits();
+    updateCities();
+    updateClients();
+    updatePurchasers();
+    updateRawMaterials();
+    updateSupervisors();
+  }, []);
 
   const reducer = (state, action) => {
     switch (action.type) {
@@ -43,6 +104,14 @@ function App() {
     }
   };
 
+  const getValueById = async (collection, id, key) => {
+    const res = await fetch(
+      `http://localhost:${process.env.REACT_APP_API}/${collection}/${id}`
+    ).then((res) => res.json());
+    if (!res.data) return "";
+    return res.data[key];
+  };
+
   const [state, dispatch] = useReducer(reducer, states);
 
   return (
@@ -60,57 +129,127 @@ function App() {
           showAddUnit={() => dispatch({ type: "on", id: "add_unit" })}
           hideAddUnit={() => dispatch({ type: "off", id: "add_unit" })}
           addSeniorSupervisor={state[3].status}
-          showAddSeniorSupervisor={() => dispatch({ type: "on", id: "add_senior_supervisor" })}
-          hideAddSeniorSupervisor={() => dispatch({ type: "off", id: "add_senior_supervisor" })}
+          showAddSeniorSupervisor={() =>
+            dispatch({ type: "on", id: "add_senior_supervisor" })
+          }
+          hideAddSeniorSupervisor={() =>
+            dispatch({ type: "off", id: "add_senior_supervisor" })
+          }
           addJuniorSupervisor={state[4].status}
-          showAddJuniorSupervisor={() => dispatch({ type: "on", id: "add_junior_supervisor" })}
-          hideAddJuniorSupervisor={() => dispatch({ type: "off", id: "add_junior_supervisor" })}
+          showAddJuniorSupervisor={() =>
+            dispatch({ type: "on", id: "add_junior_supervisor" })
+          }
+          hideAddJuniorSupervisor={() =>
+            dispatch({ type: "off", id: "add_junior_supervisor" })
+          }
           addCity={state[5].status}
           showAddCity={() => dispatch({ type: "on", id: "add_city" })}
           hideAddCity={() => dispatch({ type: "off", id: "add_city" })}
           addPurchaser={state[6].status}
           showAddPurchaser={() => dispatch({ type: "on", id: "add_purchaser" })}
-          hideAddPurchaser={() => dispatch({ type: "off", id: "add_purchaser" })}
+          hideAddPurchaser={() =>
+            dispatch({ type: "off", id: "add_purchaser" })
+          }
           addRawMaterial={state[7].status}
-          showAddRawMaterial={() => dispatch({ type: "on", id: "add_raw_material" })}
-          hideAddRawMaterial={() => dispatch({ type: "off", id: "add_raw_material" })}
+          showAddRawMaterial={() =>
+            dispatch({ type: "on", id: "add_raw_material" })
+          }
+          hideAddRawMaterial={() =>
+            dispatch({ type: "off", id: "add_raw_material" })
+          }
+          getValueById={getValueById}
+          areaUnits={areaUnits}
+          cities={cities}
+          clients={clients}
+          purchasers={purchasers}
+          rawMaterials={rawMaterials}
+          supervisors={supervisors}
+          updateAreaUnits={updateAreaUnits}
+          updateCities={updateCities}
+          updateClients={updateClients}
+          updatePurchasers={updatePurchasers}
+          updateRawMaterials={updateRawMaterials}
+          updateSupervisors={updateSupervisors}
+          setAreaUnits={setAreaUnits}
+          setCities={setCities}
+          setClients={setClients}
+          setPurchasers={setPurchasers}
+          setRawMaterials={setRawMaterials}
+          setSupervisors={setSupervisors}
+          setToast={setToast}
+          setToastMsg={setToastMsg}
         />
         <AddClient
           show={state[1].status}
           onShow={() => dispatch({ type: "on", id: "add_client" })}
           onHide={() => dispatch({ type: "off", id: "add_client" })}
+          update={updateClients}
+          setToast={setToast}
+          setToastMsg={setToastMsg}
         />
         <AddUnit
           show={state[2].status}
           onShow={() => dispatch({ type: "on", id: "add_unit" })}
           onHide={() => dispatch({ type: "off", id: "add_unit" })}
+          update={updateAreaUnits}
+          setToast={setToast}
+          setToastMsg={setToastMsg}
         />
         <AddSeniorSupervisor
           show={state[3].status}
           onShow={() => dispatch({ type: "on", id: "add_senior_supervisor" })}
           onHide={() => dispatch({ type: "off", id: "add_senior_supervisor" })}
+          update={updateSupervisors}
+          setToast={setToast}
+          setToastMsg={setToastMsg}
         />
         <AddJuniorSupervisor
           show={state[4].status}
           onShow={() => dispatch({ type: "on", id: "add_junior_supervisor" })}
           onHide={() => dispatch({ type: "off", id: "add_junior_supervisor" })}
+          update={updateSupervisors}
+          setToast={setToast}
+          setToastMsg={setToastMsg}
         />
         <AddCity
           show={state[5].status}
           onShow={() => dispatch({ type: "on", id: "add_city" })}
           onHide={() => dispatch({ type: "off", id: "add_city" })}
+          update={updateCities}
+          setToast={setToast}
+          setToastMsg={setToastMsg}
         />
         <AddPurchaser
           show={state[6].status}
           onShow={() => dispatch({ type: "on", id: "add_purchaser" })}
           onHide={() => dispatch({ type: "off", id: "add_purchaser" })}
+          updateAreaUnits={updatePurchasers}
+          setToast={setToast}
+          setToastMsg={setToastMsg}
         />
         <AddRawMaterial
           show={state[7].status}
           onShow={() => dispatch({ type: "on", id: "add_raw_material" })}
           onHide={() => dispatch({ type: "off", id: "add_raw_material" })}
+          update={updateRawMaterials}
+          setToast={setToast}
+          setToastMsg={setToastMsg}
         />
       </main>
+      <ToastContainer className="p-3" position={"bottom-end"}>
+        <Toast
+          onClose={() => setToast(false)}
+          show={toast}
+          delay={3000}
+          autohide
+        >
+          <Toast.Header closeButton={false}>
+            <strong className="me-auto">System</strong>
+            <small>Just Now</small>
+          </Toast.Header>
+          <Toast.Body>{toastMsg}</Toast.Body>
+        </Toast>
+      </ToastContainer>
     </>
   );
 }

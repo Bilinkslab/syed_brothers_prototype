@@ -8,6 +8,7 @@ import SeniorSupervisorCard from "./SeniorSupervisorCard";
 import AddSite from "./AddSite";
 
 export default function Dashboard(props) {
+
   return (
     <>
       <Row>
@@ -38,6 +39,25 @@ export default function Dashboard(props) {
         showAddCity={props.showAddCity}
         showAddRawMaterial={props.showAddRawMaterial}
         showAddPurchaser={props.showAddPurchaser}
+        areaUnits={props.areaUnits}
+        cities={props.cities}
+        clients={props.clients}
+        purchasers={props.purchasers}
+        rawMaterials={props.rawMaterials}
+        supervisors={props.supervisors}
+        updateAreaUnits={props.updateAreaUnits}
+        updateCities={props.updateCities}
+        updateClients={props.updateClients}
+        updatePurchasers={props.updatePurchasers}
+        updateRawMaterials={props.updateRawMaterials}
+        updateSupervisors={props.updateSupervisors}
+        setAreaUnits={props.setAreaUnits}
+        setCities={props.setCities}
+        setClients={props.setClients}
+        setPurchasers={props.setPurchasers}
+        setRawMaterials={props.setRawMaterials}
+        setSupervisors={props.setSupervisors}
+        getValueById={props.getValueById}
       />
     </>
   );

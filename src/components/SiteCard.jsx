@@ -2,7 +2,7 @@ import { Card, Col, Row, Table } from "react-bootstrap";
 
 export default function SiteCard(props) {
   return (
-    <Card className="bg-success text-white">
+    <Card>
       <Card.Header>
         <Row>
           <Col xs={6}><b>Site(s)</b></Col>
@@ -13,7 +13,7 @@ export default function SiteCard(props) {
         </Row>
       </Card.Header>
       <Card.Body>
-        <Table className="text-white">
+        <Table>
           <thead>
             <tr>
               <th>Total Site(s)</th>

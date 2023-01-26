@@ -2,7 +2,7 @@ import { Card, Col, Row, Table } from "react-bootstrap";
 
 export default function ClientCard(props) {
   return (
-    <Card className="text-white bg-danger">
+    <Card>
       <Card.Header>
         <Row>
           <Col xs={6}><b>Client(s)</b></Col>
@@ -13,7 +13,7 @@ export default function ClientCard(props) {
         </Row>
       </Card.Header>
       <Card.Body>
-        <Table className="text-white">
+        <Table>
           <thead>
             <tr>
               <th>Total Client(s)</th>

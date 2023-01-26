@@ -2,7 +2,7 @@ import { Card, Col, Row, Table } from "react-bootstrap";
 
 export default function SeniorSupervisorCard(props) {
   return (
-    <Card className="bg-primary text-light">
+    <Card>
       <Card.Header>
         <Row>
           <Col xs={6}><b>Senior Supervisor(s)</b></Col>
@@ -13,7 +13,7 @@ export default function SeniorSupervisorCard(props) {
         </Row>
       </Card.Header>
       <Card.Body>
-        <Table className="text-light">
+        <Table>
           <thead>
             <tr>
               <th>Total Senior Supervisor(s)</th>

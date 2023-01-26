@@ -3,3 +3,7 @@
 *{
     font-family: 'Poppins', sans-serif;
 }
+
+.row b u {
+    cursor: pointer;
+}
