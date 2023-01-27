@@ -11,6 +11,7 @@ export default function AddPurchaser(props) {
   });
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('jj')
     const options = {
       method: "POST",
       headers: {

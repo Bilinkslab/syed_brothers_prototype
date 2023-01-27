@@ -40,17 +40,44 @@ route.get("/:position/all", (req, res) => {
   return setResponse(res, null, data);
 });
 
+function nameValidation(name) {
+  var nameRegex = /^[a-zA-Z ]+$/;
+  return nameRegex.test(name);
+}
+
+function cnicValidation(cnic) {
+  var cnicRegex = /^[0-9]{13}$/;
+  return cnicRegex.test(cnic);
+}
+
+function mobileValidation(mobile) {
+  var mobileRegex = /^[0-9]{11}$/;
+  return mobileRegex.test(mobile);
+}
+
 route.post("/", (req, res) => {
   const data = req.body;
   if (!data.name) {
     return setResponse(res, "Supervisor name is required", null, 405);
   }
+  if (!nameValidation(data.name)) {
+    return setResponse(res, "Supervisor name is Invalid" , null, 405);
+  }
+
   if (!data.cnic) {
     return setResponse(res, "Supervisor cnic is required", null, 405);
   }
+  if (!cnicValidation(data.cnic) ) {
+    return setResponse(res, "Supervisor cnic is Invalid", null, 405);
+  }
+
   if (!data.mobile) {
     return setResponse(res, "Supervisor mobile number is required", null, 405);
   }
+  if (!mobileValidation(data.mobile)) {
+    return setResponse(res, "Supervisor mobile number is Invalid", null, 405);
+  }
+
   if (!data.city) {
     return setResponse(res, "Supervisor city is required", null, 405);
   }

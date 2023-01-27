@@ -32,20 +32,48 @@ route.get("/:id", (req, res) => {
   return setResponse(res, null, data);
 });
 
+function cnicValidation(cnic) {
+  var cnicRegex = /^[0-9]{13}$/;
+  return cnicRegex.test(cnic);
+}
+
+function nameValidation(name) {
+  var nameRegex = /^[a-zA-Z ]+$/;
+  return nameRegex.test(name);
+}
+
+function mobileValidation(mobile) {
+  var mobileRegex = /^[0-9]{11}$/;
+  return mobileRegex.test(mobile);
+}
+
 route.post("/", (req, res) => {
   const data = req.body;
   if (!data.name) {
     return setResponse(res, "Purchaser name is required", null, 405);
   }
+  if (!nameValidation(data.name) ) {
+    return setResponse(res, "Invalid name", null, 405);
+  }
+
   if (!data.cnic) {
     return setResponse(res, "Purchaser cnic is required", null, 405);
   }
+  if (!cnicValidation(data.cnic) ) {
+    return setResponse(res, "Invalid CNIC", null, 405);
+  }
+
   if (!data.mobile) {
     return setResponse(res, "Purchaser mobile number is required", null, 405);
   }
+  if (!mobileValidation(data.mobile)) {
+    return setResponse(res, "Invalid mobile number", null, 405);
+  }
+  
   if (!data.city) {
     return setResponse(res, "Purchaser city is required", null, 405);
   }
+
   if (!data.current) {
     return setResponse(res, "Purchaser current city is required", null, 405);
   }
