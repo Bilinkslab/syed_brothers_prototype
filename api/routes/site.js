@@ -100,6 +100,7 @@ route.put("/:id", (req, res) => {
     supervisor_jr: data.supervisor_jr,
     purchasers: data.purchasers, // { city, material, purchaser }
     approved: 0, // 0 => Pending, 1 => Approved, 2 => Rejected
+    ...data
   };
   for (let i = 0; i < Site.length; i++) {
     if (Site[i]._id == id) {

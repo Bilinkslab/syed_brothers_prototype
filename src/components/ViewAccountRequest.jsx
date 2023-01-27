@@ -124,6 +124,7 @@ export default function ViewAccountRequest(props) {
         setToast={props.setToast}
         setToastMsg={props.setToastMsg}
         update={props.update}
+        site={props.site}
       />
       <RejectSiteRequest
         show={showRejectRequest}
@@ -131,6 +132,7 @@ export default function ViewAccountRequest(props) {
         setToast={props.setToast}
         setToastMsg={props.setToastMsg}
         update={props.update}
+        site={props.site}
       />
       <UpdateSiteSupervisorSR
         show={showUpdateSupervisorSR}
