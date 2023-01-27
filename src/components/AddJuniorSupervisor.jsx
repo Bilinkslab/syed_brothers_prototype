@@ -74,7 +74,7 @@ export default function AddJuniorSupervisor(props) {
                 placeholder="Enter Current Residence"
               />
             </Form.Group>
-            <Button type="submit">Add Senior Supervisor</Button>
+            <Button type="submit">Add Junior Supervisor</Button>
           </Form>
         </Modal.Body>
       </Modal>

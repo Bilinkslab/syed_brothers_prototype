@@ -29,7 +29,8 @@ function App() {
   const [purchasers, setPurchasers] = useState([]);
   const [rawMaterials, setRawMaterials] = useState([]);
   const [supervisors, setSupervisors] = useState([]);
-  const [toast, setToast] = useState(true);
+  const [sites, setSites] = useState([]);
+  const [toast, setToast] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
 
   const updateAreaUnits = async () => {
@@ -37,6 +38,13 @@ function App() {
       `http://localhost:${process.env.REACT_APP_API}/area_unit`
     ).then((res) => res.json());
     setAreaUnits(res.data);
+  };
+
+  const updateSites = async () => {
+    const res = await fetch(
+      `http://localhost:${process.env.REACT_APP_API}/site`
+    ).then((res) => res.json());
+    setSites(res.data);
   };
 
   const updateCities = async () => {
@@ -81,6 +89,7 @@ function App() {
     updatePurchasers();
     updateRawMaterials();
     updateSupervisors();
+    updateSites();
   }, []);
 
   const reducer = (state, action) => {
@@ -170,6 +179,7 @@ function App() {
           updatePurchasers={updatePurchasers}
           updateRawMaterials={updateRawMaterials}
           updateSupervisors={updateSupervisors}
+          updateSites={updateSites}
           setAreaUnits={setAreaUnits}
           setCities={setCities}
           setClients={setClients}
@@ -178,6 +188,7 @@ function App() {
           setSupervisors={setSupervisors}
           setToast={setToast}
           setToastMsg={setToastMsg}
+          sites={sites}
         />
         <AddClient
           show={state[1].status}
@@ -223,7 +234,7 @@ function App() {
           show={state[6].status}
           onShow={() => dispatch({ type: "on", id: "add_purchaser" })}
           onHide={() => dispatch({ type: "off", id: "add_purchaser" })}
-          updateAreaUnits={updatePurchasers}
+          update={updatePurchasers}
           setToast={setToast}
           setToastMsg={setToastMsg}
         />

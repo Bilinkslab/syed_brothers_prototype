@@ -6,9 +6,51 @@ import PurchaserCard from "./PurchaserCard";
 import JuniorSupervisorCard from "./JuniorSupervisorCard";
 import SeniorSupervisorCard from "./SeniorSupervisorCard";
 import AddSite from "./AddSite";
+import Requests from "./Requests";
 
 export default function Dashboard(props) {
-
+  const getClientName = (id) => {
+    for (let i = 0; i < props.clients.length; i++) {
+      if (props.clients[i]._id == id) {
+        return props.clients[i].name;
+      }
+    }
+  };
+  const getSupervisorName = (id) => {
+    for (let i = 0; i < props.supervisors.length; i++) {
+      if (props.supervisors[i]._id == id) {
+        return props.supervisors[i].name;
+      }
+    }
+  };
+  const getPurchaserName = (id) => {
+    for (let i = 0; i < props.purchasers.length; i++) {
+      if (props.purchasers[i]._id == id) {
+        return props.purchasers[i].name;
+      }
+    }
+  };
+  const getAreaUnitName = (id) => {
+    for (let i = 0; i < props.areaUnits.length; i++) {
+      if (props.areaUnits[i]._id == id) {
+        return props.areaUnits[i].title;
+      }
+    }
+  };
+  const getCityName = (id) => {
+    for (let i = 0; i < props.cities.length; i++) {
+      if (props.cities[i]._id == id) {
+        return props.cities[i].title;
+      }
+    }
+  };
+  const getMaterialName = (id) => {
+    for (let i = 0; i < props.rawMaterials.length; i++) {
+      if (props.rawMaterials[i]._id == id) {
+        return props.rawMaterials[i].title;
+      }
+    }
+  };
   return (
     <>
       <Row>
@@ -27,6 +69,23 @@ export default function Dashboard(props) {
         <Col className="mb-3" lg={4} md={6} sm={12}>
           <PurchaserCard onClick={props.showAddPurchaser} />
         </Col>
+        <Col className="mb-3" lg={4} md={6} sm={12}>
+          <Requests
+            sites={props.sites}
+            clients={props.clients}
+            areaUnits={props.areaUnits}
+            purchasers={props.purchasers}
+            rawMaterials={props.rawMaterials}
+            supervisors={props.supervisors}
+            cities={props.cities}
+            getAreaUnitName={getAreaUnitName}
+            getClientName={getClientName}
+            getSupervisorName={getSupervisorName}
+            getCityName={getCityName}
+            getPurchaserName={getPurchaserName}
+            getMaterialName={getMaterialName}
+          />
+        </Col>
       </Row>
       <AddSite
         show={props.addSite}
@@ -44,6 +103,12 @@ export default function Dashboard(props) {
         clients={props.clients}
         purchasers={props.purchasers}
         rawMaterials={props.rawMaterials}
+        getAreaUnitName={getAreaUnitName}
+        getClientName={getClientName}
+        getSupervisorName={getSupervisorName}
+        getCityName={getCityName}
+        getPurchaserName={getPurchaserName}
+        getMaterialName={getMaterialName}
         supervisors={props.supervisors}
         updateAreaUnits={props.updateAreaUnits}
         updateCities={props.updateCities}
@@ -58,6 +123,9 @@ export default function Dashboard(props) {
         setRawMaterials={props.setRawMaterials}
         setSupervisors={props.setSupervisors}
         getValueById={props.getValueById}
+        setToast={props.setToast}
+        setToastMsg={props.setToastMsg}
+        update={props.updateSites}
       />
     </>
   );

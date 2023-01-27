@@ -32,6 +32,30 @@ export default function AddSite(props) {
     setForm({ ...form, purchasers: res });
   };
 
+  const nextPage = (e) => {
+    e.preventDefault();
+    setCurrentPage(currentPage + 1);
+  };
+
+  const sendRequest = async (e) => {
+    e.preventDefault();
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    };
+    const res = await fetch(
+      `http://localhost:${process.env.REACT_APP_API}/site`,
+      options
+    ).then((res) => res.json());
+    props.update();
+    if (res.status === 201) props.onHide();
+    props.setToastMsg(res.message);
+    props.setToast(true);
+  };
+
   return (
     <>
       <Modal
@@ -47,7 +71,7 @@ export default function AddSite(props) {
               <Card className="mb-3">
                 <Card.Header>Site Information</Card.Header>
                 <Card.Body>
-                  <Form>
+                  <Form onSubmit={nextPage}>
                     <Row>
                       <Col className="mb-3" lg={6} mid={12}>
                         <Row className="mb-2">
@@ -150,7 +174,10 @@ export default function AddSite(props) {
                                   }
                                   required
                                 >
-                                  <option> Select Area Unit...</option>
+                                  <option defaultChecked defaultValue={""}>
+                                    {" "}
+                                    Select Area Unit...
+                                  </option>
                                   {props.areaUnits.map((i, index) => (
                                     <option
                                       key={`area-unit-site-${index}`}
@@ -251,13 +278,7 @@ export default function AddSite(props) {
                       </Col>
                     </Row>
                     <Row className="pe-3 pull-right">
-                      <Button
-                        onClick={() => {
-                          setCurrentPage(currentPage + 1);
-                        }}
-                      >
-                        Next
-                      </Button>
+                      <Button type="submit">Next</Button>
                     </Row>
                   </Form>
                 </Card.Body>
@@ -380,7 +401,7 @@ export default function AddSite(props) {
                       </Col>
                     </Row>
                     <Row className="pe-3 pull-right">
-                      <Button type="submite">Add Purchaser</Button>
+                      <Button type="submit">Add Purchaser</Button>
                     </Row>
                   </Form>
                 </Card.Body>
@@ -414,9 +435,9 @@ export default function AddSite(props) {
                       {form.purchasers.map((i, index) => (
                         <tr key={`site-table-purchaser-${index}`}>
                           <td>{index + 1}</td>
-                          <td>{i.purchaser}</td>
-                          <td>{i.city}</td>
-                          <td>{i.material}</td>
+                          <td>{props.getPurchaserName(i.purchaser)}</td>
+                          <td>{props.getCityName(i.city)}</td>
+                          <td>{props.getMaterialName(i.material)}</td>
                           <td>
                             <Button
                               onClick={() => deletePurchaser(index)}
@@ -443,20 +464,20 @@ export default function AddSite(props) {
                       <b>Address: </b> {form.address}
                     </Col>
                     <Col sm={12} lg={6}>
-                      <b>Client: </b> {form.client}
+                      <b>Client: </b> {props.getClientName(form.client)}
                     </Col>
                   </Row>
                   <Row className="mb-3">
                     <Col sm={12} lg={6}>
-                      <b>Area: </b> {`${form.area} ${form.area_unit}`}
+                      <b>Area: </b> {`${form.area} ${props.getAreaUnitName(form.area_unit)}`}
                     </Col>
                   </Row>
                   <Row className="mb-3">
                     <Col sm={12} lg={6}>
-                      <b>Senior Supervisor: </b> {form.supervisor_sr}
+                      <b>Senior Supervisor: </b> {props.getSupervisorName(form.supervisor_sr)}
                     </Col>
                     <Col sm={12} lg={6}>
-                      <b>Junior Supervisor: </b> {form.supervisor_jr}
+                      <b>Junior Supervisor: </b> {props.getSupervisorName(form.supervisor_jr)}
                     </Col>
                   </Row>
                   <h5 className="text">Purchasers</h5>
@@ -473,9 +494,9 @@ export default function AddSite(props) {
                       {form.purchasers.map((i, index) => (
                         <tr key={`review-site-index-${index}`}>
                           <td>{index + 1}</td>
-                          <td>{i.purchaser}</td>
-                          <td>{i.city}</td>
-                          <td>{i.material}</td>
+                          <td>{props.getPurchaserName(i.purchaser)}</td>
+                          <td>{props.getCityName(i.city)}</td>
+                          <td>{props.getMaterialName(i.material)}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -488,16 +509,11 @@ export default function AddSite(props) {
               >
                 Previous
               </Button>
-              <Button
-                className="me-3 mb-3"
-                variant="success"
-                onClick={() => {
-                  props.setToastMsg("Request Initiate");
-                  props.setToast(true);
-                }}
-              >
-                Send Request
-              </Button>
+              <Form onSubmit={sendRequest}>
+                <Button type="submit" className="me-3 mb-3" variant="success">
+                  Send Request
+                </Button>
+              </Form>
             </>
           )}
         </Modal.Body>

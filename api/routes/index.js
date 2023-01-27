@@ -13,5 +13,7 @@ const city = require("./city");
 route.use("/city", city);
 const purchaser = require("./purchaser");
 route.use("/purchaser", purchaser);
+const site = require("./site");
+route.use("/site", site);
 
 module.exports = route;

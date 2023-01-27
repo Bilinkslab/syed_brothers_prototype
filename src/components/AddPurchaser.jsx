@@ -73,7 +73,7 @@ export default function AddPurchaser(props) {
                 placeholder="Enter Current Residence"
               />
             </Form.Group>
-            <Button type="submit">Add Senior Supervisor</Button>
+            <Button type="submit">Add Purchaser Supervisor</Button>
           </Form>
         </Modal.Body>
       </Modal>
