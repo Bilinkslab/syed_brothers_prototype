@@ -121,20 +121,34 @@ export default function ViewAccountRequest(props) {
       <AcceptSiteRequest
         show={showAcceptRequest}
         onHide={() => setShowAcceptRequest(false)}
+        setToast={props.setToast}
+        setToastMsg={props.setToastMsg}
+        update={props.update}
       />
       <RejectSiteRequest
         show={showRejectRequest}
         onHide={() => setShowRejectRequest(false)}
+        setToast={props.setToast}
+        setToastMsg={props.setToastMsg}
+        update={props.update}
       />
       <UpdateSiteSupervisorSR
         show={showUpdateSupervisorSR}
         onHide={() => setShowUpdateSupervisorSR(false)}
         supervisors={props.supervisors}
+        site={props.site}
+        setToast={props.setToast}
+        setToastMsg={props.setToastMsg}
+        update={props.update}
       />
       <UpdateSiteSupervisorJR
         show={showUpdateSupervisorJR}
         onHide={() => setShowUpdateSupervisorJR(false)}
         supervisors={props.supervisors}
+        site={props.site}
+        setToast={props.setToast}
+        setToastMsg={props.setToastMsg}
+        update={props.update}
       />
       <AddSitePurchaser
         show={showAddPurchaser}
@@ -142,6 +156,9 @@ export default function ViewAccountRequest(props) {
         purchasers={props.purchasers}
         cities={props.cities}
         rawMaterials={props.rawMaterials}
+        setToast={props.setToast}
+        setToastMsg={props.setToastMsg}
+        update={props.update}
       />
     </>
   );

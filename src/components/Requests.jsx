@@ -162,6 +162,9 @@ export default function Requests(props) {
         purchasers={props.purchasers}
         cities={props.cities}
         rawMaterials={props.rawMaterials}
+        setToast={props.setToast}
+        setToastMsg={props.setToastMsg}
+        update={props.update}
       />
     </>
   );

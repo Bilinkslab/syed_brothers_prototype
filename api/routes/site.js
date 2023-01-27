@@ -11,8 +11,8 @@ const Site = [
     area_unit: 1,
     supervisor_sr: 1,
     supervisor_jr: 1,
-    purchasers: [], 
-    approved: 1, 
+    purchasers: [],
+    approved: 1,
   },
 ];
 
@@ -67,6 +67,47 @@ route.post("/", (req, res) => {
     approved: 0, // 0 => Pending, 1 => Approved, 2 => Rejected
   });
   return setResponse(res, "Request sent to accounts", null, 201);
+});
+
+route.put("/:id", (req, res) => {
+  const data = req.body;
+  const id = req.params.id;
+  if (!data.address) {
+    return setResponse(res, "Site address is required", null, 405);
+  }
+  if (!data.client) {
+    return setResponse(res, "Client is required", null, 405);
+  }
+  if (!data.area) {
+    return setResponse(res, "Area is required", null, 405);
+  }
+  if (!data.area_unit) {
+    return setResponse(res, "Area unit is required", null, 405);
+  }
+  if (!data.supervisor_sr) {
+    return setResponse(res, "Senior supervisor is required", null, 405);
+  }
+  if (!data.supervisor_jr) {
+    return setResponse(res, "Junior supervisor is required", null, 405);
+  }
+  const newObject = {
+    _id: parseInt(id),
+    address: data.address,
+    client: data.client,
+    area: data.area,
+    area_unit: data.area_unit,
+    supervisor_sr: data.supervisor_sr,
+    supervisor_jr: data.supervisor_jr,
+    purchasers: data.purchasers, // { city, material, purchaser }
+    approved: 0, // 0 => Pending, 1 => Approved, 2 => Rejected
+  };
+  for (let i = 0; i < Site.length; i++) {
+    if (Site[i]._id == id) {
+      Site[i] = newObject;
+      return setResponse(res, "Updated", null, 200);
+    }
+  }
+  return setResponse(res, "Site not found", null, 404);
 });
 
 module.exports = route;

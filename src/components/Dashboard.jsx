@@ -84,6 +84,9 @@ export default function Dashboard(props) {
             getCityName={getCityName}
             getPurchaserName={getPurchaserName}
             getMaterialName={getMaterialName}
+            setToast={props.setToast}
+            setToastMsg={props.setToastMsg}
+            update={props.updateSites}
           />
         </Col>
       </Row>
